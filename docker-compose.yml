@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: smartbank
+      POSTGRES_USER: smartbank
+      POSTGRES_PASSWORD: smartbank
+    ports:
+      - "5433:5432"
+    volumes:
+      - smartbank-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smartbank"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  smartbank-postgres-data:
